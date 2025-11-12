@@ -1,38 +1,56 @@
 <?php
 
-namespace App\Database\Seeds;
+namespace App\Database\Migrations;
 
-use CodeIgniter\Database\Seeder;
+use CodeIgniter\Database\Migration;
 
-class RoleSeeder extends Seeder
+class CreateRoleTable extends Migration
 {
-   public function run()
+   public function up()
    {
-      $db = \Config\Database::connect();
+      $this->forge->addField([
+         'id_role' => [
+            'type' => 'INT',
+            'constraint' => 11,
+            'unsigned' => true,
+            'auto_increment' => true,
+         ],
+         'nama_role' => [
+            'type' => 'VARCHAR',
+            'constraint' => '50',
+            'null' => false,
+         ],
+         'created_at' => [
+            'type' => 'DATETIME',
+            'null' => false,
+            'default' => 'CURRENT_TIMESTAMP',
+         ],
+         'updated_at' => [
+            'type' => 'DATETIME',
+            'null' => true,
+         ],
+      ]);
+      $this->forge->addPrimaryKey('id_role');
+      $this->forge->createTable('role');
 
-      $roles = [
-         ['nama_role' => 'admin'],
-         ['nama_role' => 'tu'],
-         ['nama_role' => 'peminjam'],
-         ['nama_role' => 'pemimpin'],
-      ];
+      // Insert default roles
+      $this->insertDefaultRoles();
+   }
+
+   public function down()
+   {
+      $this->forge->dropTable('role');
+   }
+
+   private function insertDefaultRoles()
+   {
+      $roles = ['Peminjam', 'Admin', 'TU', 'Pimpinan'];
 
       foreach ($roles as $role) {
-         $exists = $db->table('roles')
-            ->where('nama_role', $role['nama_role'])
-            ->get()
-            ->getRow();
-
-         if (! $exists) {
-            $db->table('roles')->insert([
-               'nama_role'        => $role['nama_role'],
-               'created_at'  => date('Y-m-d H:i:s'),
-               'updated_at'  => date('Y-m-d H:i:s'),
-            ]);
-            echo "Role '{$role['nama_role']}' berhasil dibuat\n";
-         } else {
-            echo "Role '{$role['nama_role']}' sudah ada\n";
-         }
+         $this->db->table('role')->insert([
+            'nama_role' => $role,
+            'created_at' => date('Y-m-d H:i:s')
+         ]);
       }
    }
 }

@@ -2,41 +2,66 @@
 
 namespace App\Controllers;
 
-use App\Controllers\BaseController;
-use App\Entities\User;
+use CodeIgniter\Controller;
+use CodeIgniter\Shield\Authentication\Authenticators\Session;
+use App\Models\UserModel;
 
-class AuthController extends BaseController
+class AuthController extends Controller
 {
-    /**
-     * Mengarahkan pengguna berdasarkan grup (role) mereka
-     * setelah login berhasil.
-     */
-    public function redirect()
+    public function login()
     {
-        // auth()->user(), helper Shield untuk mendapatkan user yang sedang login
-        // inGroup('...'), helper Shield untuk mengecek grup (role)
-
-        /** @var \App\Entities\User $user */
-        $user = auth()->user();
-
-        if ($user->hasRole('Admin')) {
-            return redirect()->to('/admin/dashboard');
+        // Jika sudah login, redirect ke dashboard
+        if (auth()->loggedIn()) {
+            return redirect()->to('/dashboard');
         }
 
-        if ($user->hasRole('TU')) {
-            return redirect()->to('/tu/dashboard');
+        if ($this->request->getMethod() === 'post') {
+            $identifier = $this->request->getPost('username');
+            $password = $this->request->getPost('password');
+            $remember = (bool) $this->request->getPost('remember');
+
+            // Cari user by username atau email
+            $userModel = new UserModel();
+            $user = $userModel->findByIdentifier($identifier);
+
+            if (!$user) {
+                return redirect()->back()->with('error', 'Username/Email atau password salah!');
+            }
+
+            // Verify password
+            if (!$user->verifyPassword($password)) {
+                return redirect()->back()->with('error', 'Username/Email atau password salah!');
+            }
+
+            // Login user menggunakan Shield
+            $auth = auth()->getAuthenticator();
+            $auth->login($user, $remember);
+
+            // Set session data tambahan
+            session()->set([
+                'user_id' => $user->id_user,
+                'nama_lengkap' => $user->nama_lengkap,
+                'role_id' => $user->id_role,
+                'role_name' => $user->getRoleName(),
+                'organisasi' => $user->organisasi
+            ]);
+
+            return redirect()->to('/dashboard')->with('success', 'Login berhasil! Selamat datang, ' . $user->nama_lengkap);
         }
 
-        if ($user->hasRole('Peminjam')) {
-            return redirect()->to('/peminjam/dashboard');
-        }
+        return view('auth/login');
+    }
 
-        if ($user->hasRole('Pimpinan')) {
-            return redirect()->to('/pimpinan/dashboard');
-        }
-
-        // logout paksa dan kembalikan ke login dengan pesan error jika tidak sesuai.
+    public function logout()
+    {
         auth()->logout();
-        return redirect()->to('/login')->with('error', 'Anda tidak memiliki hak akses.');
+        session()->destroy();
+
+        return redirect()->to('/login')->with('success', 'Logout berhasil!');
+    }
+
+    public function forgotPassword()
+    {
+        return view('auth/forgot_password');
     }
 }
