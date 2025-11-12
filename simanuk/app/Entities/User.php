@@ -2,36 +2,47 @@
 
 namespace App\Entities;
 
-use CodeIgniter\Shield\Entities\User as ShieldUser;
-use App\Models\RoleModel; // Model untuk tabel roles kustom
+use CodeIgniter\Entity\Entity;
+use CodeIgniter\Shield\Authentication\Passwords;
 
-class User extends ShieldUser
+class User extends Entity
 {
-   protected ?string $roleName = null;
-
-   protected $casts = [
-      'id'             => 'int',
-      'id_role'        => 'int', // Kolom kustom 
-      'active'         => 'boolean',
-      'created_at'     => 'datetime',
-      'updated_at'     => 'datetime',
-      'deleted_at'     => 'datetime',
-      'nama_lengkap'   => 'string', // Kolom kustom 
-      'organisasi'     => 'string', // Kolom kustom 
-      'kontak'         => 'string', // Kolom kustom 
-   ];
-
    protected $attributes = [
-      'email'        => null,
-      'username'     => null,
+      'id_user' => null,
+      'id_role' => null,
       'nama_lengkap' => null,
-      'no_hp'        => null,
-      'id_role'      => null,
-      'status'       => null,
-      'active'       => true,
+      'username' => null,
+      'password' => null,
+      'organisasi' => null,
+      'email' => null,
+      'kontak' => null,
+      'created_at' => null,
+      'updated_at' => null,
    ];
 
-   protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+   protected $datamap = [];
+   protected $dates = ['created_at', 'updated_at'];
+   protected $casts = [
+      'id_user' => 'integer',
+      'id_role' => 'integer',
+   ];
+
+   /**
+    * Set password dengan hashing menggunakan Shield
+    */
+   public function setPassword(string $password)
+   {
+      $this->attributes['password'] = service('passwords')->hash($password);
+      return $this;
+   }
+
+   /**
+    * Verify password menggunakan Shield
+    */
+   public function verifyPassword(string $password): bool
+   {
+      return service('passwords')->verify($password, $this->password);
+   }
 
    public function hasRole(string $role): bool
    {
