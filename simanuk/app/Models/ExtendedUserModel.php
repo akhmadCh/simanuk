@@ -2,24 +2,22 @@
 
 namespace App\Models;
 
-use CodeIgniter\Shield\Models\UserModel as ShieldUserModel;
-use \App\Entities\User;
+use CodeIgniter\Shield\Models\UserModel;
 
-class ExtendedUserModel extends ShieldUserModel
+class ExtendedUserModel extends UserModel
 {
-   protected $table = 'users';
    protected $primaryKey = 'id';
-   protected $returnType = User::class;
-
    protected $allowedFields = [
-      'email',
-      'username',
-      'password_hash',
-      'active',
       'id_role',
+      'email',
       'nama_lengkap',
       'organisasi',
       'kontak',
+      'username',
+      'status',
+      'password_hash',
+      'active',
+      'last_active',
       'created_at',
       'updated_at',
    ];

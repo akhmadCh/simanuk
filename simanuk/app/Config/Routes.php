@@ -5,7 +5,6 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-
 $routes->get('/', 'Home::index');
 // shield GET & POST
 service('auth')->routes($routes);
@@ -13,15 +12,16 @@ service('auth')->routes($routes);
 $routes->get('/auth/redirect', 'Auth::redirect', ['filter' => 'session']);
 
 // 3. Rute untuk dasbor yang berbeda (juga dilindungi)
-$routes->group('admin', ['filter' => 'role:Admin'], static function ($routes) {
+$routes->group('admin', ['filter' => 'session', 'group:Admin'], static function ($routes) {
    $routes->get('dashboard', 'Admin\DashboardController::index');
 });
-$routes->group('peminjam', ['filter' => 'role:Peminjam'], static function ($routes) {
+
+$routes->group('peminjam', ['filter' => 'session', 'group:Peminjam'], static function ($routes) {
    $routes->get('dashboard', 'Peminjam\DashboardController::index');
 });
 
-$routes->group('admin', ['filter' => 'session', 'group:Admin'], static function ($routes) {
-   $routes->get('dashboard', 'Admin\DashboardController::index');
+$routes->group('pimpinan', ['filter' => 'session', 'group:Pimpinan'], static function ($routes) {
+   $routes->get('dashboard', 'Pimpinan\DashboardController::index');
 });
 
 // ----------------------------------------------------
@@ -38,14 +38,6 @@ $routes->group('tu', ['filter' => 'session', 'group:TU'], static function ($rout
    $routes->get('kelola/akun/edit/(:num)', 'TU\UserController::edit/$1'); // UPDATE - Tampil Form
    $routes->post('kelola/akun/update/(:num)', 'TU\UserController::update/$1'); // UPDATE - Proses Update
    $routes->post('kelola/akun/delete/(:num)', 'TU\UserController::delete/$1'); // DELETE
-});
-
-$routes->group('peminjam', ['filter' => 'session', 'group:Peminjam'], static function ($routes) {
-   $routes->get('dashboard', 'Peminjam\DashboardController::index');
-});
-
-$routes->group('pimpinan', ['filter' => 'session', 'group:Pimpinan'], static function ($routes) {
-   $routes->get('dashboard', 'Pimpinan\DashboardController::index');
 });
 
 // Rute Umum (Profil Saya)

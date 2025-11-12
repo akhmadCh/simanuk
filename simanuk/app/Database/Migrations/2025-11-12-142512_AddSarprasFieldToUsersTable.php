@@ -16,11 +16,17 @@ class AddSarprasFieldsToUsers extends Migration
                 'null'       => false, // buat false agar sesuai ERD
                 'after'      => 'id', // tambahkan setelah kolom 'id' bawaan Shield
             ],
+            'email' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+                'null'       => false,
+                'after'      => 'id_role',
+            ],
             'nama_lengkap' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'null'       => false,
-                'after'      => 'id_role',
+                'after'      => 'email',
             ],
             'organisasi' => [
                 'type'       => 'TEXT',
@@ -42,7 +48,7 @@ class AddSarprasFieldsToUsers extends Migration
         $this->forge->addForeignKey('id_role', 'roles', 'id_role', 'CASCADE', 'CASCADE', 'users_id_role_foreign');
 
         // Update tabel agar Foreign Key ter-apply
-        $this->db->query('ALTER TABLE `users` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`)');
+        // $this->db->query('ALTER TABLE `users` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`)');
     }
 
     public function down()
@@ -53,6 +59,7 @@ class AddSarprasFieldsToUsers extends Migration
         // Hapus kolom-kolom
         $this->forge->dropColumn('users', [
             'id_role',
+            'email',
             'nama_lengkap',
             'organisasi',
             'kontak',

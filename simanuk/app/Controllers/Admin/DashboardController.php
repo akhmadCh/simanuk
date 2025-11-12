@@ -12,7 +12,7 @@ class DashboardController extends BaseController
 
    public function __construct()
    {
-      $this->userModel = new ExtendedUserModel();
+      $this->userModel = auth()->getProvider();
    }
 
    public function index()

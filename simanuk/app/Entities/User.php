@@ -7,31 +7,23 @@ use App\Models\RoleModel; // Model untuk tabel roles kustom
 
 class User extends ShieldUser
 {
-   protected ?string $roleName = null;
+   protected $table = 'users';
+   protected $primaryKey = 'id';
+   protected ?string $roleNameCache = null; 
+   protected $returnType = self::class;
 
    protected $casts = [
       'id'             => 'int',
-      'id_role'        => 'int', // Kolom kustom 
+      'id_role'        => 'int',
       'active'         => 'boolean',
       'created_at'     => 'datetime',
       'updated_at'     => 'datetime',
-      'deleted_at'     => 'datetime',
-      'nama_lengkap'   => 'string', // Kolom kustom 
-      'organisasi'     => 'string', // Kolom kustom 
-      'kontak'         => 'string', // Kolom kustom 
+      // 'nama_lengkap'   => 'string',
+      // 'organisasi'     => 'string',
+      // 'kontak'         => 'string', 
    ];
 
-   protected $attributes = [
-      'username'     => null,
-      'nama_lengkap' => null,
-      'email'        => null,
-      'no_hp'        => null,
-      'id_role'      => null,
-      'status'       => null,
-      'active'       => true,
-   ];
-
-   protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+   // protected $dates = ['created_at', 'updated_at'];
 
    public function hasRole(string $role): bool
    {
