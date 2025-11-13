@@ -42,7 +42,7 @@ class RoleFilter implements FilterInterface
         // Periksa apakah role pengguna ada di dalam daftar $arguments
         // Kita gunakan helper hasRole() yang baru saja kita buat di Entitas
         foreach ($arguments as $role) {
-            if ($user->hasRole($role)) {
+            if ($user->inGroup($role)) {
                 // Jika cocok, izinkan request (return)
                 return;
             }

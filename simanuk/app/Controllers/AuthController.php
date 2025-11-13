@@ -19,7 +19,7 @@ class AuthController extends BaseController
         /** @var \App\Entities\User $user */
         $user = auth()->user();
 
-        if ($user->hasRole('Admin')) {
+        if ($user->inGroup('Admin')) {
             return redirect()->to('/admin/dashboard');
         }
 
