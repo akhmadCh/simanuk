@@ -18,13 +18,12 @@ class DashboardController extends BaseController
    public function index()
    {
       $user = auth()->user();
-      // dd($user->id);
       // $userData = $this->userModel->getUserWithRole($user->id);
 
       $data = [
-         'title' => 'Dashboard Admin',
+         'title' => 'Dashboard Peminjam',
       ];
 
-      return view('admin/dashboard_view', $data);
+      return view('peminjam/dashboard_view', $data);
    }
 }
