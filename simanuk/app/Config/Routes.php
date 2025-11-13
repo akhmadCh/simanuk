@@ -9,7 +9,7 @@ $routes->get('/', 'Home::index');
 // shield GET & POST
 service('auth')->routes($routes);
 // redirect setelah login
-$routes->get('/auth/redirect', 'Auth::redirect', ['filter' => 'session']);
+$routes->get('/auth/redirect', 'AuthController::redirect', ['filter' => 'session']);
 
 // 3. Rute untuk dasbor yang berbeda (juga dilindungi)
 $routes->group('admin', ['filter' => ['session', 'role:Admin']], static function ($routes) {

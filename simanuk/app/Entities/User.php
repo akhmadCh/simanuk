@@ -7,12 +7,11 @@ use App\Models\RoleModel;
 
 class User extends ShieldUser
 {
-   protected $table = 'users';
-   protected $primaryKey = 'id';
-   protected ?string $roleNameCache = null;
+   // protected $table = 'users';
+   // protected $primaryKey = 'id';
+   // protected $datamap = [];
 
-   // PENTING: Tambahkan field kustom ke $datamap agar bisa di-set via constructor
-   protected $datamap = [];
+   protected ?string $roleNameCache = null;
 
    protected $dates = [
       'created_at',
@@ -28,16 +27,19 @@ class User extends ShieldUser
       'created_at'  => 'datetime',
       'updated_at'  => 'datetime',
       'deleted_at'  => 'datetime',
+      'nama_lengkap'   => 'string',
+      'organisasi'     => 'string',
+      'kontak'         => 'string',
    ];
 
-   // field yang ada di ERD
-   // tambahkan ke $attributes agar bisa diisi
-   protected $attributes = [
-      'id_role'      => null,
-      'nama_lengkap' => null,
-      'organisasi'   => null,
-      'kontak'       => null,
-   ];
+   // // field yang ada di ERD
+   // // tambahkan ke $attributes agar bisa diisi
+   // protected $attributes = [
+   //    'id_role'      => null,
+   //    'nama_lengkap' => null,
+   //    'organisasi'   => null,
+   //    'kontak'       => null,
+   // ];
 
    public function hasRole(string $role): bool
    {
