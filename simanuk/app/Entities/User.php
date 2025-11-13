@@ -3,58 +3,66 @@
 namespace App\Entities;
 
 use CodeIgniter\Shield\Entities\User as ShieldUser;
-use App\Models\RoleModel; // Model untuk tabel roles kustom
+use App\Models\RoleModel;
 
 class User extends ShieldUser
 {
    protected $table = 'users';
    protected $primaryKey = 'id';
-   protected ?string $roleNameCache = null; 
-   protected $returnType = self::class;
+   protected ?string $roleNameCache = null;
 
-   protected $casts = [
-      'id'             => 'int',
-      'id_role'        => 'int',
-      'active'         => 'boolean',
-      'created_at'     => 'datetime',
-      'updated_at'     => 'datetime',
-      // 'nama_lengkap'   => 'string',
-      // 'organisasi'     => 'string',
-      // 'kontak'         => 'string', 
+   // PENTING: Tambahkan field kustom ke $datamap agar bisa di-set via constructor
+   protected $datamap = [];
+
+   protected $dates = [
+      'created_at',
+      'updated_at',
+      'deleted_at',
    ];
 
-   // protected $dates = ['created_at', 'updated_at'];
+   // field yang ada di shield
+   protected $casts = [
+      'id'          => 'int',
+      'id_role'     => 'int',
+      'active'      => 'boolean',
+      'created_at'  => 'datetime',
+      'updated_at'  => 'datetime',
+      'deleted_at'  => 'datetime',
+   ];
+
+   // field yang ada di ERD
+   // tambahkan ke $attributes agar bisa diisi
+   protected $attributes = [
+      'id_role'      => null,
+      'nama_lengkap' => null,
+      'organisasi'   => null,
+      'kontak'       => null,
+   ];
 
    public function hasRole(string $role): bool
    {
-      // return $this->getRoleName() === $role;
       return strtolower($this->getRoleName()) === strtolower($role);
    }
 
    public function getRoleName(): string
    {
-      // 1. Jika sudah ada di cache, langsung kembalikan
       if ($this->roleNameCache !== null) {
          return $this->roleNameCache;
       }
 
-      // 2. Jika user ini (dari tabel 'users') tidak punya id_role
       if (empty($this->attributes['id_role'])) {
-         $this->roleNameCache = ''; // Set cache ke kosong
+         $this->roleNameCache = '';
          return '';
       }
 
-      // 3. Ambil dari database (HANYA SEKALI)
       $roleModel = model(RoleModel::class);
       $role = $roleModel->find($this->attributes['id_role']);
 
       if ($role) {
-         // 4. Simpan ke cache dan kembalikan
          $this->roleNameCache = $role['nama_role'];
          return $this->roleNameCache;
       }
 
-      // Jika id_role ada tapi tidak ditemukan di tabel 'roles'
       $this->roleNameCache = '';
       return '';
    }

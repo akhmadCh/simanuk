@@ -1,36 +1,32 @@
 <?php
+// app/Database/Migrations/2025-11-12-142512_AddCustomFieldsToUsers.php
 
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddSarprasFieldsToUsers extends Migration
+class AddCustomFieldsToUsers extends Migration
 {
     public function up()
     {
-        // Ini adalah kolom-kolom dari ERD Anda
+        // Tambahkan HANYA field yang BELUM ADA di Shield's users table
         $fields = [
             'id_role' => [
                 'type'       => 'INT',
                 'unsigned'   => true,
-                'null'       => false, // buat false agar sesuai ERD
-                'after'      => 'id', // tambahkan setelah kolom 'id' bawaan Shield
-            ],
-            'email' => [
-                'type'       => 'VARCHAR',
-                'constraint' => 255,
                 'null'       => false,
-                'after'      => 'id_role',
+                'after'      => 'id',
             ],
             'nama_lengkap' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
                 'null'       => false,
-                'after'      => 'email',
+                'after'      => 'id_role',
             ],
             'organisasi' => [
-                'type'       => 'TEXT',
-                'null'       => true, // Di ERD Anda tidak ada 'not null'
+                'type'       => 'VARCHAR',
+                'constraint' => 100,
+                'null'       => true,
                 'after'      => 'nama_lengkap',
             ],
             'kontak' => [
@@ -43,12 +39,8 @@ class AddSarprasFieldsToUsers extends Migration
 
         $this->forge->addColumn('users', $fields);
 
-        // Tambahkan Foreign Key SETELAH kolom dibuat
-        // Pastikan 'roles' (dari CreateRoleTable) sudah ada
-        $this->forge->addForeignKey('id_role', 'roles', 'id_role', 'CASCADE', 'CASCADE', 'users_id_role_foreign');
-
-        // Update tabel agar Foreign Key ter-apply
-        // $this->db->query('ALTER TABLE `users` DROP PRIMARY KEY, ADD PRIMARY KEY (`id`)');
+        // Tambahkan Foreign Key
+        $this->db->query('ALTER TABLE `users` ADD CONSTRAINT `users_id_role_foreign` FOREIGN KEY (`id_role`) REFERENCES `roles`(`id_role`) ON DELETE CASCADE ON UPDATE CASCADE');
     }
 
     public function down()
@@ -59,7 +51,6 @@ class AddSarprasFieldsToUsers extends Migration
         // Hapus kolom-kolom
         $this->forge->dropColumn('users', [
             'id_role',
-            'email',
             'nama_lengkap',
             'organisasi',
             'kontak',

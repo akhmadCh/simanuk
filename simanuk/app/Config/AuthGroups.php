@@ -61,6 +61,19 @@ class AuthGroups extends ShieldAuthGroups
             'title'       => 'Beta User',
             'description' => 'Has access to beta-level features.',
         ],
+        // tambahan group
+        'tu' => [
+            'title'       => 'TU',
+            'description' => 'Tata Usaha yang mengelola Sarana Prasarana',
+        ],
+        'peminjam' => [
+            'title'       => 'Peminjam',
+            'description' => 'UKM dan Ormawa Fakultas Teknik.',
+        ],
+        'pimpinan' => [
+            'title'       => 'Pimpinan',
+            'description' => 'Dekan Fakultas Teknik.',
+        ],
     ];
 
     /**
