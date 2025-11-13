@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'AuthController::redirect');
 // shield GET & POST
 service('auth')->routes($routes);
 
@@ -27,6 +27,7 @@ $routes->group('admin', ['filter' => ['session', 'role:Admin']], static function
 
 $routes->group('peminjam', ['filter' => ['session', 'role:Peminjam']], static function ($routes) {
    $routes->get('dashboard', 'Peminjam\DashboardController::index');
+   $routes->get('katalog', 'Peminjam\KatalogController::index');
 });
 
 $routes->group('pimpinan', ['filter' => ['session', 'role:Pimpinan']], static function ($routes) {

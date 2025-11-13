@@ -11,12 +11,11 @@ class InventarisModel extends Model
    protected $useTimestamps = true;
    protected $allowedFields = [
       'nama_barang',
-      'slug',
+      'kode_inventaris',
       'jumlah',
       'deskripsi',
-      'kondisi',
+      'kondisi', // ENUM
       'status_ketersediaan',
-      'foto_barang',
       // FK
       'id_kategori',
       'id_lokasi',
