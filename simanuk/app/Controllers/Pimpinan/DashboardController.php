@@ -20,6 +20,7 @@ class DashboardController extends BaseController
 
       $data = [
          'title' => 'Dashboard Pimpinan',
+         'showSidebar' => true, // flag untuk sidebar
       ];
 
       return view('pimpinan/dashboard_view', $data);

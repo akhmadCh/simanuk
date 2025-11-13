@@ -20,6 +20,7 @@ class DashboardController extends BaseController
 
       $data = [
          'title' => 'Dashboard Peminjam',
+         'showSidebar' => true, // flag untuk sidebar
       ];
 
       return view('peminjam/dashboard_view', $data);

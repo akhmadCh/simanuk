@@ -19,6 +19,7 @@ class DashboardController extends BaseController
 
       $data = [
          'title' => 'Dashboard TU',
+         'showSidebar' => true, // flag untuk sidebar
       ];
 
       return view('tu/dashboard_view', $data);
