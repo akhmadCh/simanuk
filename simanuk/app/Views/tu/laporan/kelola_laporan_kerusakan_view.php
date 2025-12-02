@@ -127,10 +127,30 @@
                                  <?php endif; ?>
                               </td>
                               <td class="px-4 py-3">
-                                 <button onclick="openProcessModal('<?= $row['id_laporan'] ?>')"
-                                    class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
-                                    Proses
-                                 </button>
+                                 <?php
+                                 // Cek apakah ini laporan dari peminjaman?
+                                 $isTransactional = !empty($row['id_peminjaman']);
+                                 $status = $row['status_laporan'];
+                                 ?>
+
+                                 <?php if ($isTransactional && $status == 'Diajukan') : ?>
+
+                                    <a href="<?= site_url('tu/pengembalian/detail/' . $row['id_peminjaman']) ?>"
+                                       class="inline-flex items-center px-3 py-1.5 bg-blue-100 text-blue-700 hover:bg-blue-200 border border-blue-300 rounded text-xs font-medium transition-colors"
+                                       title="Verifikasi via Menu Pengembalian">
+                                       Cek Transaksi
+                                    </a>
+
+                                 <?php elseif (in_array($status, ['Selesai', 'Ditolak'])) : ?>
+
+                                    <span class="text-gray-400 text-xs italic">Selesai</span>
+
+                                 <?php else : ?>
+                                    <button onclick="openProcessModal('<?= $row['id_laporan'] ?>')"
+                                       class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+                                       Proses
+                                    </button>
+                                 <?php endif; ?>
                               </td>
                            </tr>
                         <?php endforeach; ?>
