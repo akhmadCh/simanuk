@@ -83,7 +83,15 @@ $isBlocking = ($today > $toleranceDate) && ($h['status_peminjaman_global'] == 'D
                   <?php foreach ($h['items_sarana'] as $item) : ?>
                      <li class="px-4 py-3 flex justify-between items-center text-sm">
                         <div>
-                           <span class="font-medium text-gray-900 block"><?= esc($item['nama_sarana']) ?></span>
+                           <div class="flex items-center gap-2">
+                              <span class="font-medium text-gray-900"><?= esc($item['nama_sarana']) ?></span>
+
+                              <?php if (!empty($item['kondisi_akhir']) && $item['kondisi_akhir'] !== 'Baik'): ?>
+                                 <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-red-100 text-red-800 border border-red-200">
+                                    <?= esc($item['kondisi_akhir']) ?>
+                                 </span>
+                              <?php endif; ?>
+                           </div>
                            <span class="text-xs text-gray-500 bg-gray-100 px-2 py-0.5 rounded"><?= esc($item['kode_sarana']) ?></span>
                            <span class="font-small text-gray-600 block">Jumlah Unit Dipinjam: <?= $item['jumlah'] ?></span>
                         </div>
@@ -115,7 +123,7 @@ $isBlocking = ($today > $toleranceDate) && ($h['status_peminjaman_global'] == 'D
 
                            <?php if (in_array($item['status'], ['Disetujui', 'Dipinjam'])): ?>
 
-                              <?php if (!empty($item['catatan_penolakan']) ): ?>
+                              <?php if (!empty($item['catatan_penolakan'])): ?>
                                  <button type="button" data-reason="<?= esc($item['catatan_penolakan']) ?>" onclick="openRejectionModal(this)" class="text-red-600 text-xs underline">
                                     Lihat Revisi
                                  </button>
