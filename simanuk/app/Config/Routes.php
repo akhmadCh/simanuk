@@ -83,9 +83,11 @@ $routes->group('admin', ['filter' => ['session', 'role:Admin']], static function
 
    $routes->post('master/kategori/store', 'Admin\MasterDataController::storeKategori');
    $routes->post('master/kategori/delete/(:num)', 'Admin\MasterDataController::deleteKategori/$1');
-
+   $routes->post('master/kategori/update/(:num)', 'Admin\MasterDataController::updateKategori/$1');
+   
    $routes->post('master/lokasi/store', 'Admin\MasterDataController::storeLokasi');
    $routes->post('master/lokasi/delete/(:num)', 'Admin\MasterDataController::deleteLokasi/$1');
+   $routes->post('master/lokasi/update/(:num)', 'Admin\MasterDataController::updateLokasi/$1');
 });
 
 // ----------------------------------------------------

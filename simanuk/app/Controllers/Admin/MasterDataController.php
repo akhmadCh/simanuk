@@ -72,6 +72,45 @@ class MasterDataController extends BaseController
       return redirect()->back()->with('message', 'Lokasi berhasil ditambahkan.');
    }
 
+   public function updateKategori($id)
+   {
+      // Validasi: Nama unik, tapi abaikan untuk ID kategori yang sedang diedit ini
+      if (!$this->validate([
+         'nama_kategori' => "required|min_length[3]|is_unique[kategori.nama_kategori,id_kategori,{$id}]"
+      ])) {
+         return redirect()->back()->withInput()->with('error_kategori', $this->validator->getErrors());
+      }
+
+      $this->kategoriModel->update($id, [
+         'nama_kategori' => $this->request->getPost('nama_kategori')
+      ]);
+
+      return redirect()->back()->with('message', 'Kategori berhasil diperbarui.');
+   }
+
+   // ... (storeKategori & deleteKategori tetap ada) ...
+
+   // --- CRUD LOKASI ---
+
+   // [TAMBAHKAN METHOD INI]
+   public function updateLokasi($id)
+   {
+      // Validasi: Nama unik, abaikan ID lokasi saat ini
+      if (!$this->validate([
+         'nama_lokasi' => "required|min_length[3]|is_unique[lokasi.nama_lokasi,id_lokasi,{$id}]",
+         'alamat'      => 'permit_empty'
+      ])) {
+         return redirect()->back()->withInput()->with('error_lokasi', $this->validator->getErrors());
+      }
+
+      $this->lokasiModel->update($id, [
+         'nama_lokasi' => $this->request->getPost('nama_lokasi'),
+         'alamat'      => $this->request->getPost('alamat')
+      ]);
+
+      return redirect()->back()->with('message', 'Lokasi berhasil diperbarui.');
+   }
+
    public function deleteLokasi($id)
    {
       $this->lokasiModel->delete($id);
