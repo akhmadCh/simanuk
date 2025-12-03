@@ -75,6 +75,7 @@
                                     <tr>
                                         <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Sarana</th>
                                         <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kode</th>
+                                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah</th>
                                         <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
                                         <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                                         <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
@@ -95,6 +96,9 @@
                                                 </td>
                                                 <td class="py-4 px-6 text-gray-700 whitespace-nowrap">
                                                     <?= esc($item['kode_sarana']); ?>
+                                                </td>
+                                                <td class="py-4 px-6 text-gray-700 whitespace-nowrap">
+                                                    <?= esc($item['jumlah']); ?>
                                                 </td>
                                                 <td class="py-4 px-6 text-gray-700 whitespace-nowrap">
                                                     <?= esc($item['nama_kategori']); ?>
