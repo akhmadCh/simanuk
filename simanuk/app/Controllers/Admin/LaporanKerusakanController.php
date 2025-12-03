@@ -193,7 +193,14 @@ class LaporanKerusakanController extends BaseController
    {
       if (!$this->validate([
          'tipe_aset' => 'required',
-         'judul_laporan' => 'required|min_length[5]|alpha_numeric_space',
+         'judul_laporan' => [
+            'rules' => "required|min_length[5]|alpha_space",
+            'errors' => [
+               'required'   => 'Judul laporan wajib diisi.',
+               'min_length' => 'Judul laporan minimal 5 karakter.',
+               'alpha_space' => 'Judul laporan hanya boleh berisi huruf dan spasi.',
+            ]
+         ],
          'bukti_foto' => 'uploaded[bukti_foto]|is_image[bukti_foto]|max_size[bukti_foto,4096]', // Max 4MB
       ])) {
          return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
