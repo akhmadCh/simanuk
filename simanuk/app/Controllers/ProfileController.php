@@ -56,17 +56,19 @@ class ProfileController extends BaseController
             ]
          ],
          'nama_lengkap' => [
-            'rules' => "required|min_length[3]|is_unique[users.nama_lengkap,id,{$user->id}]",
+            'rules' => "required|min_length[3]|alpha_space|is_unique[users.nama_lengkap,id,{$user->id}]",
             'errors' => [
                'required'   => 'Nama lengkap wajib diisi.',
                'min_length' => 'Nama lengkap minimal 3 karakter.',
+               'alpha_space' => 'Nama lengkap hanya boleh berisi huruf dan spasi.',
                'is_unique'  => 'Nama lengkap ini sudah terdaftar.',
             ]
          ],
          'organisasi' => [
-            'rules' => "required",
+            'rules' => "required|alpha_numeric_space",
             'errors' => [
                'required' => 'Organisasi wajib diisi.',
+               'alpha_numeric_space' => 'Organisasi tidak boleh mengandung simbol.'
             ]
          ],
          'kontak' => [

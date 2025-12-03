@@ -75,10 +75,11 @@ class PeminjamanController extends BaseController
       // 1. Validasi Input Header
       if (!$this->validate([
          'kegiatan' => [
-            'rules' => "required|min_length[5]",
+            'rules' => "required|min_length[5]|alpha_numeric_space",
             'errors' => [
                'required' => 'Nama sarana wajib diisi.',
                'min_length' => 'Nama kegiatan / acara minimal 5 huruf.',
+               'alpha_numeric_space' => 'Nama kegiatan tidak boleh mengandung simbol.'
             ]
          ],
          'tgl_pinjam_dimulai' => [

@@ -77,7 +77,7 @@ class LaporanKerusakanController extends BaseController
     {
         if (!$this->validate([
             'tipe_aset' => 'required',
-            'judul_laporan' => 'required|min_length[5]',
+            'judul_laporan' => 'required|min_length[5]|alpha_numeric_space',
             'bukti_foto' => 'uploaded[bukti_foto]|is_image[bukti_foto]|max_size[bukti_foto,2048]',
         ])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());

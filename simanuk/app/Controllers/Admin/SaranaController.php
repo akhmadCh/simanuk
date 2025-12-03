@@ -92,9 +92,10 @@ class SaranaController extends BaseController
       // rules untuk validasi input
       $rules = [
          'nama_sarana' => [
-            'rules' => 'required|is_unique[sarana.nama_sarana]',
+            'rules' => 'required||alpha_numeric_space|is_unique[sarana.nama_sarana]',
             'errors' => [
                'required' => 'Nama item / sarana wajib diisi',
+               'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
                'is_unique' => 'Sarana yang sama sudah terdaftar',
             ]
          ],
@@ -234,16 +235,18 @@ class SaranaController extends BaseController
       $rules = [
          'nama_sarana' => [
             // Abaikan pengecekan is_unique untuk record saat ini
-            'rules' => "required|is_unique[sarana.nama_sarana,id_sarana,{$id}]",
+            'rules' => "required|alpha_numeric_space|is_unique[sarana.nama_sarana,id_sarana,{$id}]",
             'errors' => [
                'required' => 'Nama sarana wajib diisi',
+               'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
                'is_unique' => 'Sarana lain dengan nama yang sama sudah terdaftar',
             ]
          ],
          'kode_sarana' => [
-            'rules' => "required|is_unique[sarana.kode_sarana,id_sarana,{$id}]",
+            'rules' => "required|alpha_dash|is_unique[sarana.kode_sarana,id_sarana,{$id}]",
             'errors' => [
                'required' => 'Kode sarana harus diisi',
+               'alpha_dash' => 'Kode sarana hanya boleh huruf, angka, dan strip (-).',
                'is_unique' => 'Kode sarana lain yang sama sudah terdaftar',
             ]
          ],

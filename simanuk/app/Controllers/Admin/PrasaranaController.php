@@ -93,16 +93,18 @@ class PrasaranaController extends BaseController
       // rules untuk validasi input
       $rules = [
          'nama_prasarana' => [
-            'rules' => 'required|is_unique[prasarana.nama_prasarana]',
+            'rules' => 'required|alpha_numeric_space|is_unique[prasarana.nama_prasarana]',
             'errors' => [
                'required' => 'Nama prasarana wajib diisi',
+               'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
                'is_unique' => 'Prasarana yang sama sudah terdaftar',
             ]
          ],
          'kode_prasarana' => [
-            'rules' => 'required|is_unique[prasarana.kode_prasarana]',
+            'rules' => 'required|alpha_dash|is_unique[prasarana.kode_prasarana]',
             'errors' => [
                'required' => 'Kode prasarana harus diisi',
+               'alpha_dash' => 'Kode sarana hanya boleh huruf, angka, dan strip (-).',
                'is_unique' => 'Kode prasarana yang sama sudah terdaftar',
             ]
          ],
@@ -256,16 +258,18 @@ class PrasaranaController extends BaseController
       // Aturan validasi
       $rules = [
          'nama_prasarana' => [
-            'rules' => "required|is_unique[prasarana.nama_prasarana,id_prasarana,{$id}]",
+            'rules' => "required|alpha_numeric_space|is_unique[prasarana.nama_prasarana,id_prasarana,{$id}]",
             'errors' => [
                'required' => 'Nama prasarana wajib diisi',
+               'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
                'is_unique' => 'Prasarana lain dengan nama yang sama sudah terdaftar',
             ]
          ],
          'kode_prasarana' => [
-            'rules' => "required|is_unique[prasarana.kode_prasarana,id_prasarana,{$id}]",
+            'rules' => "required|alpha_dash|is_unique[prasarana.kode_prasarana,id_prasarana,{$id}]",
             'errors' => [
                'required' => 'Kode prasarana harus diisi',
+               'alpha_dash' => 'Kode sarana hanya boleh huruf, angka, dan strip (-).',
                'is_unique' => 'Kode prasarana lain yang sama sudah terdaftar',
             ]
          ],
