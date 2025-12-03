@@ -90,7 +90,7 @@ Profil Saya
 
                         <div>
                             <label for="kontak" class="block text-sm font-medium text-gray-600 mb-2">No. Kontak / WA</label>
-                            <input type="number" id="kontak" name="kontak" value="<?= esc($user->kontak); ?>"
+                            <input type="number" id="kontak" name="kontak"  value="<?= esc($user->kontak); ?>"
                                 class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
                         </div>
 

@@ -70,11 +70,12 @@ class ProfileController extends BaseController
             ]
          ],
          'kontak' => [
-            'rules' => "required|numeric|min_length[10]",
+            'rules' => "required|numeric|min_length[10]|max_length[12]",
             'errors' => [
                'required'   => 'Nomor kontak wajib diisi.',
                'numeric'    => 'Nomor kontak harus berupa angka.',
                'min_length' => 'Nomor kontak tidak valid.',
+               'max_length' => 'Nomor kontak maksimal 12 angka.',
             ]
          ],
       ];
