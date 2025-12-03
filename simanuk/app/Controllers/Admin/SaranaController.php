@@ -100,9 +100,10 @@ class SaranaController extends BaseController
             ]
          ],
          'kode_sarana' => [
-            'rules' => 'required|is_unique[sarana.kode_sarana]',
+            'rules' => 'required|alpha_dash|is_unique[sarana.kode_sarana]',
             'errors' => [
                'required' => 'Kode sarana harus diisi',
+               'alpha_dash' => 'Kode sarana hanya boleh huruf, angka, dan strip (-).',
                'is_unique' => 'Kode sarana yang sama sudah terdaftar',
             ]
          ],
