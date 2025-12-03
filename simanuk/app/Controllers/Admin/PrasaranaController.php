@@ -96,7 +96,7 @@ class PrasaranaController extends BaseController
             'rules' => 'required|alpha_numeric_space|is_unique[prasarana.nama_prasarana]',
             'errors' => [
                'required' => 'Nama prasarana wajib diisi',
-               'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
+               'alpha_numeric_space' => 'Nama prasarana tidak boleh mengandung simbol aneh.',
                'is_unique' => 'Prasarana yang sama sudah terdaftar',
             ]
          ],
@@ -104,7 +104,7 @@ class PrasaranaController extends BaseController
             'rules' => 'required|alpha_dash|is_unique[prasarana.kode_prasarana]',
             'errors' => [
                'required' => 'Kode prasarana harus diisi',
-               'alpha_dash' => 'Kode sarana hanya boleh huruf, angka, dan strip (-).',
+               'alpha_dash' => 'Kode prasarana hanya boleh huruf, angka, dan strip (-).',
                'is_unique' => 'Kode prasarana yang sama sudah terdaftar',
             ]
          ],
@@ -152,7 +152,7 @@ class PrasaranaController extends BaseController
          'deskripsi' => [
             'rules' => 'required',
             'errors' => [
-               'required' => 'Deskripsi sarana harus diisi',
+               'required' => 'Deskripsi prasarana harus diisi',
             ]
          ],
          'foto_aset' => [
@@ -261,7 +261,7 @@ class PrasaranaController extends BaseController
             'rules' => "required|alpha_numeric_space|is_unique[prasarana.nama_prasarana,id_prasarana,{$id}]",
             'errors' => [
                'required' => 'Nama prasarana wajib diisi',
-               'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
+               'alpha_numeric_space' => 'Nama prasarana tidak boleh mengandung simbol aneh.',
                'is_unique' => 'Prasarana lain dengan nama yang sama sudah terdaftar',
             ]
          ],
@@ -269,7 +269,7 @@ class PrasaranaController extends BaseController
             'rules' => "required|alpha_dash|is_unique[prasarana.kode_prasarana,id_prasarana,{$id}]",
             'errors' => [
                'required' => 'Kode prasarana harus diisi',
-               'alpha_dash' => 'Kode sarana hanya boleh huruf, angka, dan strip (-).',
+               'alpha_dash' => 'Kode prasarana hanya boleh huruf, angka, dan strip (-).',
                'is_unique' => 'Kode prasarana lain yang sama sudah terdaftar',
             ]
          ],
@@ -316,7 +316,7 @@ class PrasaranaController extends BaseController
          'deskripsi' => [
             'rules' => 'required',
             'errors' => [
-               'required' => 'Deskripsi sarana harus diisi',
+               'required' => 'Deskripsi prasarana harus diisi',
             ]
          ],
          'foto_aset' => [
