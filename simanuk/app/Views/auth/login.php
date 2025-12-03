@@ -72,11 +72,7 @@ if (auth()->loggedIn()) {
                   class="w-full p-2 pl-10 pr-10 border rounded-md focus:ring-2 focus:ring-blue-400 focus:border-blue-400">
             </div>
 
-            <div class="mt-2 mb-6 text-left">
-               <a href="#" class="text-sm text-blue-600 hover:underline">Lupa Password?</a>
-            </div>
-
-            <button type="submit"
+            <button type="mt-6 submit"
                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md font-semibold transition">
                Masuk
             </button>
