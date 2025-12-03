@@ -92,7 +92,7 @@ class SaranaController extends BaseController
       // rules untuk validasi input
       $rules = [
          'nama_sarana' => [
-            'rules' => 'required||alpha_numeric_space|is_unique[sarana.nama_sarana]',
+            'rules' => 'required|alpha_numeric_space|is_unique[sarana.nama_sarana]',
             'errors' => [
                'required' => 'Nama item / sarana wajib diisi',
                'alpha_numeric_space' => 'Nama sarana tidak boleh mengandung simbol aneh.',
