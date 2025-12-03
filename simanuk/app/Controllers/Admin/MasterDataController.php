@@ -33,7 +33,7 @@ class MasterDataController extends BaseController
 
    public function storeKategori()
    {
-      if (!$this->validate(['nama_kategori' => 'required|min_length[3]|is_unique[kategori.nama_kategori]'])) {
+      if (!$this->validate(['nama_kategori' => 'required|min_length[3]|alpha_numeric_space|is_unique[kategori.nama_kategori]'])) {
          return redirect()->back()->withInput()->with('error_kategori', $this->validator->getErrors());
       }
 
@@ -58,7 +58,7 @@ class MasterDataController extends BaseController
    public function storeLokasi()
    {
       if (!$this->validate([
-         'nama_lokasi' => 'required|min_length[3]|is_unique[lokasi.nama_lokasi]',
+         'nama_lokasi' => 'required|min_length[3]|alpha_numeric_space|is_unique[lokasi.nama_lokasi]',
          'alamat'      => 'permit_empty'
       ])) {
          return redirect()->back()->withInput()->with('error_lokasi', $this->validator->getErrors());
@@ -76,7 +76,7 @@ class MasterDataController extends BaseController
    {
       // Validasi: Nama unik, tapi abaikan untuk ID kategori yang sedang diedit ini
       if (!$this->validate([
-         'nama_kategori' => "required|min_length[3]|is_unique[kategori.nama_kategori,id_kategori,{$id}]"
+         'nama_kategori' => "required|min_length[3]|alpha_numeric_space|is_unique[kategori.nama_kategori,id_kategori,{$id}]"
       ])) {
          return redirect()->back()->withInput()->with('error_kategori', $this->validator->getErrors());
       }
@@ -97,7 +97,7 @@ class MasterDataController extends BaseController
    {
       // Validasi: Nama unik, abaikan ID lokasi saat ini
       if (!$this->validate([
-         'nama_lokasi' => "required|min_length[3]|is_unique[lokasi.nama_lokasi,id_lokasi,{$id}]",
+         'nama_lokasi' => "required|min_length[3]|alpha_numeric_space|is_unique[lokasi.nama_lokasi,id_lokasi,{$id}]",
          'alamat'      => 'permit_empty'
       ])) {
          return redirect()->back()->withInput()->with('error_lokasi', $this->validator->getErrors());
