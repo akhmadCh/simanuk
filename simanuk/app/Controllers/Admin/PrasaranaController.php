@@ -109,10 +109,6 @@ class PrasaranaController extends BaseController
             ]
          ],
          // FK
-         'id_kategori' => [
-            'rules' => 'required',
-            'errors' => ['required' => 'Kategori wajib dipilih.']
-         ],
          'id_lokasi' => [
             'rules' => 'required',
             'errors' => ['required' => 'Lokasi wajib dipilih.']
@@ -172,6 +168,14 @@ class PrasaranaController extends BaseController
          return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
       }
 
+      // ambil otomatis id kategori 'prasarana'
+      $kategoriModel = $this->kategoriModel;
+      $kategori = $kategoriModel->where('nama_kategori', 'Prasarana')->first();
+
+      if (!$kategori) {
+         return redirect()->back()->withInput()->with('error', 'Kategori "Prasarana" belum ada di Data Master. Silakan buat terlebih dahulu.');
+      }
+
       $rawFasilitas = $this->request->getPost('fasilitas');
       if (!is_array($rawFasilitas)) {
          $rawFasilitas = []; // Default array kosong
@@ -186,7 +190,7 @@ class PrasaranaController extends BaseController
          $data = [
             'nama_prasarana'        => $dataPost['nama_prasarana'],
             'kode_prasarana'        => $dataPost['kode_prasarana'],
-            'id_kategori'        => $dataPost['id_kategori'],
+            'id_kategori'           => $kategori['id_kategori'],
             'id_lokasi'          => $dataPost['id_lokasi'],
             'luas_ruangan'             => $dataPost['luas_ruangan'],
             'kapasitas_orang'            => $dataPost['kapasitas_orang'],
@@ -273,10 +277,6 @@ class PrasaranaController extends BaseController
                'is_unique' => 'Kode prasarana lain yang sama sudah terdaftar',
             ]
          ],
-         'id_kategori' => [
-            'rules' => 'required',
-            'errors' => ['required' => 'Kategori wajib dipilih.']
-         ],
          'id_lokasi' => [
             'rules' => 'required',
             'errors' => ['required' => 'Lokasi wajib dipilih.']
@@ -334,6 +334,14 @@ class PrasaranaController extends BaseController
          return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
       }
 
+      // ambil otomatis id kategori 'prasarana'
+      $kategoriModel = $this->kategoriModel;
+      $kategori = $kategoriModel->where('nama_kategori', 'Prasarana')->first();
+
+      if (!$kategori) {
+         return redirect()->back()->withInput()->with('error', 'Kategori "Prasarana" belum ada di Data Master. Silakan buat terlebih dahulu.');
+      }
+
       // Ambil data fasilitas sebagai array dari input dengan nama "fasilitas[]".
       $fasilitas = $this->request->getPost('fasilitas') ?? [];
       // Filter untuk menghapus nilai fasilitas yang kosong dan reset index array.
@@ -347,7 +355,7 @@ class PrasaranaController extends BaseController
          $data = [
             'nama_prasarana'        => $dataPost['nama_prasarana'],
             'kode_prasarana'        => $dataPost['kode_prasarana'],
-            'id_kategori'        => $dataPost['id_kategori'],
+            'id_kategori'        => $kategori['id_kategori'],
             'id_lokasi'          => $dataPost['id_lokasi'],
             'luas_ruangan'             => $dataPost['luas_ruangan'],
             'kapasitas_orang'            => $dataPost['kapasitas_orang'],

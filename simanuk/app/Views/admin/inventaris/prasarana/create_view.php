@@ -52,18 +52,6 @@
                   </div>
 
                   <div>
-                     <label class="block text-gray-700 text-sm font-bold mb-2" for="id_kategori">
-                        Kategori
-                     </label>
-                     <select class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="id_kategori" name="id_kategori">
-                        <option value="">Pilih Kategori</option>
-                        <?php foreach ($kategori as $k) : ?>
-                           <option value="<?= $k['id_kategori'] ?>" <?= old('id_kategori') == $k['id_kategori'] ? 'selected' : '' ?>><?= $k['nama_kategori'] ?></option>
-                        <?php endforeach; ?>
-                     </select>
-                  </div>
-
-                  <div>
                      <label class="block text-gray-700 text-sm font-bold mb-2" for="lantai">
                         Lantai Prasarana
                      </label>
@@ -120,7 +108,7 @@
                      </select>
                   </div>
 
-                  <div>
+                  <div class="md:col-span-2">
                      <label class="block text-gray-700 text-sm font-bold mb-2" for="status_ketersediaan">
                         Status Ketersediaan
                      </label>

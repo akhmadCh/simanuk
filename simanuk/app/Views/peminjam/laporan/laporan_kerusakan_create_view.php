@@ -17,6 +17,16 @@
       <?= render_breadcrumb($breadcrumbs); ?>
    <?php endif; ?>
 
+   <?php if (session()->has('errors')) : ?>
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 relative" role="alert">
+         <ul>
+            <?php foreach (session('errors') as $error) : ?>
+               <li><?= esc($error) ?></li>
+            <?php endforeach ?>
+         </ul>
+      </div>
+   <?php endif ?>
+
    <div class="bg-white rounded-xl shadow-sm border border-gray-200">
       <div class="p-8">
 

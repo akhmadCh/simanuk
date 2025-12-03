@@ -108,10 +108,6 @@ class SaranaController extends BaseController
             ]
          ],
          // fk
-         'id_kategori' => [
-            'rules' => 'required',
-            'errors' => ['required' => 'Kategori wajib dipilih.']
-         ],
          'id_lokasi' => [
             'rules' => 'required',
             'errors' => ['required' => 'Lokasi wajib dipilih.']
@@ -152,6 +148,14 @@ class SaranaController extends BaseController
          return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
       }
 
+      // ambil otomatis id kategori 'sarana'
+      $kategoriModel = $this->kategoriModel;
+      $kategori = $kategoriModel->where('nama_kategori', 'Sarana')->first();
+
+      if (!$kategori) {
+         return redirect()->back()->withInput()->with('error', 'Kategori "Sarana" belum ada di Data Master. Silakan buat terlebih dahulu.');
+      }
+
       // Ambil data spesifikasi dari form
       $spec_keys = $this->request->getPost('spesifikasi_key') ?? [];
       $spec_values = $this->request->getPost('spesifikasi_value') ?? [];
@@ -172,7 +176,7 @@ class SaranaController extends BaseController
          $data = [
             'nama_sarana'        => $this->request->getPost('nama_sarana'),
             'kode_sarana'        => $this->request->getPost('kode_sarana'),
-            'id_kategori'        => $this->request->getPost('id_kategori'),
+            'id_kategori'        => $kategori['id_kategori'],
             'id_lokasi'          => $this->request->getPost('id_lokasi'),
             'id_prasarana'       => $this->request->getPost('id_prasarana') ?: null, // bisa NULL
             'jumlah'             => $this->request->getPost('jumlah'),
@@ -251,11 +255,6 @@ class SaranaController extends BaseController
                'is_unique' => 'Kode sarana lain yang sama sudah terdaftar',
             ]
          ],
-         // FK
-         'id_kategori' => [
-            'rules' => 'required',
-            'errors' => ['required' => 'Kategori wajib dipilih.']
-         ],
          'id_lokasi' => [
             'rules' => 'required',
             'errors' => ['required' => 'Lokasi wajib dipilih.']
@@ -295,6 +294,14 @@ class SaranaController extends BaseController
          return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
       }
 
+      // ambil otomatis id kategori 'prasarana'
+      $kategoriModel = $this->kategoriModel;
+      $kategori = $kategoriModel->where('nama_kategori', 'Sarana')->first();
+
+      if (!$kategori) {
+         return redirect()->back()->withInput()->with('error', 'Kategori "Sarana" belum ada di Data Master. Silakan buat terlebih dahulu.');
+      }
+
       // Ambil data spesifikasi dari form
       $spec_keys = $this->request->getPost('spesifikasi_key') ?? [];
       $spec_values = $this->request->getPost('spesifikasi_value') ?? [];
@@ -313,7 +320,7 @@ class SaranaController extends BaseController
          $data = [
             'nama_sarana'        => $this->request->getPost('nama_sarana'),
             'kode_sarana'        => $this->request->getPost('kode_sarana'),
-            'id_kategori'        => $this->request->getPost('id_kategori'),
+            'id_kategori'        => $kategori['id_kategori'],
             'id_lokasi'          => $this->request->getPost('id_lokasi'),
             'id_prasarana'       => $this->request->getPost('id_prasarana') ?: null,
             'jumlah'             => $this->request->getPost('jumlah'),
