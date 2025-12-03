@@ -371,7 +371,7 @@ class DashboardController extends BaseController
                 'nama'    => $item['nama_prasarana'],
                 'jenis'   => 'Prasarana',
                 'lokasi'  => $item['nama_lokasi'] ?? '-',
-                'kondisi' => $item['kondisi'],
+                'kondisi' => "-",
                 'jumlah'  => 1
             ];
         }
