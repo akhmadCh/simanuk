@@ -244,7 +244,7 @@ class PengembalianController extends BaseController
                 return redirect()->back()->with('error', 'Gagal memproses transaksi.');
             }
 
-            return redirect()->to(site_url('admin/pengembalian'))->with('message', 'Pengembalian selesai. Stok barang BAIK telah dikembalikan, barang RUSAK tercatat di laporan.');
+            return redirect()->to(site_url('admin/pengembalian'))->with('message', 'Pengembalian selesai. Stok barang BAIK telah dikembalikan, dan jika ada barang RUSAK akan tercatat di laporan.');
         } catch (\Exception $e) {
             $db->transRollback();
             return redirect()->back()->with('error', $e->getMessage());
