@@ -209,7 +209,7 @@ class PengembalianController extends BaseController
             return redirect()->back()->with('error', 'Gagal memproses transaksi.');
          }
 
-         return redirect()->to(site_url('admin/pengembalian'))->with('message', 'Pengembalian selesai. Stok barang BAIK telah dikembalikan, dan jika ada barang RUSAK akan tercatat di laporan.');
+         return redirect()->to(site_url('admin/pengembalian'))->with('success', 'Pengembalian selesai. Stok barang BAIK telah dikembalikan, dan jika ada barang RUSAK akan tercatat di laporan.');
       } catch (\Exception $e) {
          $db->transRollback();
          return redirect()->back()->with('error', $e->getMessage());
@@ -271,7 +271,7 @@ class PengembalianController extends BaseController
             return redirect()->back()->with('error', 'Gagal memproses pengembalian.');
          }
 
-         return redirect()->to(site_url('admin/pengembalian'))->with('message', 'Pengembalian berhasil diverifikasi. Stok telah dikembalikan.');
+         return redirect()->to(site_url('admin/pengembalian'))->with('success', 'Pengembalian berhasil diverifikasi. Stok telah dikembalikan.');
       } catch (\Exception $e) {
          $db->transRollback();
          return redirect()->back()->with('error', $e->getMessage());
