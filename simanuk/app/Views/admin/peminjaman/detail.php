@@ -78,20 +78,6 @@
                                  <?php endif; ?>
                               </div>
 
-                              <div id="rejectPhotoModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-                                 <div class="bg-white p-6 rounded-lg w-96">
-                                    <h3 class="text-lg font-bold mb-2">Tolak Foto Bukti</h3>
-                                    <form id="formRejectPhoto" method="post">
-                                       <?= csrf_field() ?>
-                                       <textarea name="alasan" class="w-full border p-2 text-sm rounded" placeholder="Alasan penolakan (contoh: Foto buram)" required></textarea>
-                                       <div class="flex justify-end gap-2 mt-4">
-                                          <button type="button" onclick="document.getElementById('rejectPhotoModal').classList.add('hidden')" class="px-3 py-1 bg-gray-200 rounded text-sm">Batal</button>
-                                          <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded text-sm">Tolak Foto</button>
-                                       </div>
-                                    </form>
-                                 </div>
-                              </div>
-
                            <?php endif; ?>
                         <?php endforeach; ?>
                      </tbody>
@@ -198,4 +184,20 @@
       document.getElementById('rejectPhotoModal').classList.remove('hidden');
    }
 </script>
+
+<div id="rejectPhotoModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+   <div class="bg-white p-6 rounded-lg w-96">
+      <h3 class="text-lg font-bold mb-2">Tolak Foto Bukti</h3>
+      <form id="formRejectPhoto" method="post">
+         <?= csrf_field() ?>
+         <textarea name="alasan" class="w-full border p-2 text-sm rounded" placeholder="Alasan penolakan (contoh: Foto buram)" required></textarea>
+         <div class="flex justify-end gap-2 mt-4">
+            <button type="button" onclick="document.getElementById('rejectPhotoModal').classList.add('hidden')" class="px-3 py-1 bg-gray-200 rounded text-sm">Batal</button>
+            <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded text-sm">Tolak Foto</button>
+         </div>
+      </form>
+   </div>
+</div>
+
+
 <?= $this->endSection(); ?>

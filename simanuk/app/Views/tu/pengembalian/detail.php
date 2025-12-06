@@ -49,20 +49,6 @@
                      <?php endif; ?>
                   </div>
 
-                  <div id="rejectPhotoModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-                     <div class="bg-white p-6 rounded-lg w-96">
-                        <h3 class="text-lg font-bold mb-2">Tolak Foto Bukti</h3>
-                        <form id="formRejectPhoto" method="post">
-                           <?= csrf_field() ?>
-                           <textarea name="alasan" class="w-full border p-2 text-sm rounded" placeholder="Alasan penolakan (contoh: Foto buram)" required></textarea>
-                           <div class="flex justify-end gap-2 mt-4">
-                              <button type="button" onclick="document.getElementById('rejectPhotoModal').classList.add('hidden')" class="px-3 py-1 bg-gray-200 rounded text-sm">Batal</button>
-                              <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded text-sm">Tolak Foto</button>
-                           </div>
-                        </form>
-                     </div>
-                  </div>
-
                   <div class="text-center">
                      <p class="text-xs font-bold text-gray-500 mb-2">FOTO SESUDAH (SAAT KEMBALI)</p>
                      <?php if ($item['foto_sesudah']): ?>
@@ -125,7 +111,7 @@
                            <img src="<?= base_url($item['foto_sesudah']) ?>" class="h-32 mx-auto object-cover rounded border border-gray-300 hover:opacity-75 transition">
                         </a>
 
-                        <button onclick="openRejectModal('<?= $item['id_detail_prasarana'] ?>', 'prasarana', 'sebelum')"
+                        <button onclick="openRejectModal('<?= $item['id_detail_prasarana'] ?>', 'prasarana', 'sesudah')"
                            class="mt-2 text-xs text-red-600 hover:text-red-800 underline">
                            ❌ Tolak Foto Ini
                         </button>
@@ -153,7 +139,8 @@
                <?= csrf_field() ?>
 
                <div class="mb-6 bg-blue-50 p-4 rounded-lg border border-blue-200">
-                  <h4 class="text-sm font-bold text-blue-800 mb-3 uppercase">🔍 Konfirmasi Kondisi Akhir Barang</h4>
+                  <h4 class="text-sm font-bold text-blue-800 mb-3 uppercase">🔍 Konfirmasi Kondisi Akhir</h4>
+                  <h4 class="font-bold text-gray-700 mt-6 mb-3">Daftar Sarana</h4>
 
                   <?php foreach ($itemsSarana as $item) : ?>
                      <div class="flex items-center justify-between py-2 border-b border-blue-200 last:border-0">
@@ -172,8 +159,22 @@
                      </div>
                   <?php endforeach; ?>
 
+                  <h4 class="font-bold text-gray-700 mt-6 mb-3">Daftar Prasarana</h4>
                   <?php foreach ($itemsPrasarana as $item) : ?>
-                     <input type="hidden" name="kondisi_akhir_prasarana[<?= $item['id_detail_prasarana'] ?>]" value="Baik">
+                     <label class="text-sm font-medium text-gray-700 w-full">
+                        <?= esc($item['nama_prasarana']) ?>
+                     </label>
+
+                     <div class="flex items-center justify-between py-2 border-b border-blue-200 last:border-0">
+                        <div class="w-full">
+                           <select name="kondisi_akhir_prasarana[<?= $item['id_detail_prasarana'] ?>]"
+                              class="block w-full py-1.5 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                              <option value="Baik" <?= ($item['kondisi_akhir'] == 'Baik') ? 'selected' : '' ?>>✅ Baik</option>
+                              <option value="Rusak Ringan" <?= ($item['kondisi_akhir'] == 'Rusak Ringan') ? 'selected' : '' ?>>⚠️ Rusak Ringan</option>
+                              <option value="Rusak Berat" <?= ($item['kondisi_akhir'] == 'Rusak Berat') ? 'selected' : '' ?>>⛔ Rusak Berat</option>
+                           </select>
+                        </div>
+                     </div>
                   <?php endforeach; ?>
                </div>
 
@@ -187,6 +188,20 @@
             </div>
          </div>
       </div>
+   </div>
+</div>
+
+<div id="rejectPhotoModal" class="hidden fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+   <div class="bg-white p-6 rounded-lg w-96">
+      <h3 class="text-lg font-bold mb-2">Tolak Foto Bukti</h3>
+      <form id="formRejectPhoto" method="post">
+         <?= csrf_field() ?>
+         <textarea name="alasan" class="w-full border p-2 text-sm rounded" placeholder="Alasan penolakan (contoh: Foto buram)" required></textarea>
+         <div class="flex justify-end gap-2 mt-4">
+            <button type="button" onclick="document.getElementById('rejectPhotoModal').classList.add('hidden')" class="px-3 py-1 bg-gray-200 rounded text-sm">Batal</button>
+            <button type="submit" class="px-3 py-1 bg-red-600 text-white rounded text-sm">Tolak Foto</button>
+         </div>
+      </form>
    </div>
 </div>
 

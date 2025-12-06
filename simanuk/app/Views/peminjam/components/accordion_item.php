@@ -191,7 +191,7 @@ $isBlocking = ($today > $toleranceDate) && ($h['status_peminjaman_global'] == 'D
 
                            <?php if (in_array($item['status'], ['Disetujui', 'Dipinjam'])): ?>
 
-                              <?php if (!empty($item['catatan_penolakan']) && empty($item['foto_sebelum'])): ?>
+                              <?php if (!empty($item['catatan_penolakan'])): ?>
                                  <button type="button" data-reason="<?= esc($item['catatan_penolakan']) ?>" onclick="openRejectionModal(this)" class="text-red-600 text-xs underline">
                                     Lihat Revisi
                                  </button>

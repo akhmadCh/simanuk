@@ -33,7 +33,7 @@
 
    <?php if (session()->has('error')) : ?>
       <div class="bg-red-100 text-red-700 p-4 mb-6 rounded shadow-sm relative" role="alert">
-         <strong class="font-bold">Gagal Upload!</strong>
+         <strong class="font-bold">Gagal Melakukan Peminjaman!</strong>
          <span class="block sm:inline"><?= session('error') ?></span>
          <span class="absolute top-0 bottom-0 right-0 px-4 py-3" onclick="this.parentElement.remove();">
             <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
